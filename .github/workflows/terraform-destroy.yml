@@ -1,0 +1,33 @@
+name: Terraform Destroy Workflow
+
+on:
+  workflow_dispatch: # Allow manual triggering of this workflow
+  push:
+    branches:
+      - destroy-branch # Trigger automatically when pushing to this branch
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.9.6
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ID_KEY }} # Your Access Key secret
+          aws-secret-access-key: ${{ secrets.AWS_ACCESS_SECRET }} # Your Secret Key
+          aws-region: eu-west-3 # Your desired region
+
+      - name: Initialize Terraform
+        run: terraform init
+
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve
