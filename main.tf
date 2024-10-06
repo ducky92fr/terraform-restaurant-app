@@ -32,7 +32,7 @@ module "subnets" {
 
 module "gateways" {
   source          = "./modules/gateways"
-  public_subnet_id = module.public_subnet_1.mysubnet.id
+  public_subnet_id = lookup({ for k, v in module.subnets : k => v.mysubnet.id if v.type == "public" }, "public_subnet_1")
 }
 
 module "public_route_table" {
