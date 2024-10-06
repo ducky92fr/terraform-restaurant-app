@@ -6,3 +6,8 @@ variable "instances" {
   }))
 }
 
+
+
+variable "subnets"{
+  type = any
+}

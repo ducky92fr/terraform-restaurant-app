@@ -21,24 +21,27 @@ module "vpc" {
 }
 
 
-module "public_subnet_1" {
+module "subnets" {
+  for_each            = var.subnets
   source              = "./modules/subnet"
   vpc_id              = module.vpc.my_vpc.id
-  cidr_block          = "10.0.1.0/24"
-  availability_zone   = "eu-west-3a"
-  map_public_ip_on_launch = true
-  type                = "public"
-  key                 = "1"
+  cidr_block          = each.value.cidr_block
+  availability_zone   = each.value.availability_zone
+  map_public_ip_on_launch = each.value.map_public_ip_on_launch
+  type                = each.value.type
+  key                 = each.value.key
 }
 
-module "private_subnet_1" {
+
+module "subnets" {
+  for_each            = var.subnets
   source              = "./modules/subnet"
   vpc_id              = module.vpc.my_vpc.id
-  cidr_block          = "10.0.2.0/24"
-  availability_zone   = "eu-west-3b"
-  map_public_ip_on_launch = false
-  type                = "private"
-  key                 = "1"
+  cidr_block          = each.value.cidr_block
+  availability_zone   = each.value.availability_zone
+  map_public_ip_on_launch = each.value.map_public_ip_on_launch
+  type                = each.value.type
+  key                 = each.value.key
 }
 
 module "gateways" {
