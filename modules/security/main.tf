@@ -22,7 +22,7 @@ resource "aws_security_group" "allow_ssh" {
 }
 
 resource "aws_security_group" "allow_http" {
-  vpc_id = aws_vpc.vpc_id
+  vpc_id = aws_vpc.my_vpc.id
   name   = "allow-http"
 
   ingress {
