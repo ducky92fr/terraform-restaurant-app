@@ -4,7 +4,3 @@ variable "public_subnet_id" {
 }
 
 
-variable "vpc_id" {
-  description = "VPC ID for the security group"
-  type        = string
-}

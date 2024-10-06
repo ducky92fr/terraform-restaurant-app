@@ -32,7 +32,6 @@ module "subnets" {
 
 module "gateways" {
   source          = "./modules/gateways"
-  vpc_id          = module.vpc.my_vpc.id
   public_subnet_id = module.public_subnet_1.mysubnet.id
 }
 
