@@ -32,18 +32,6 @@ module "subnets" {
   key                 = each.value.key
 }
 
-
-module "subnets" {
-  for_each            = var.subnets
-  source              = "./modules/subnet"
-  vpc_id              = module.vpc.my_vpc.id
-  cidr_block          = each.value.cidr_block
-  availability_zone   = each.value.availability_zone
-  map_public_ip_on_launch = each.value.map_public_ip_on_launch
-  type                = each.value.type
-  key                 = each.value.key
-}
-
 module "gateways" {
   source          = "./modules/gateways"
   vpc_id          = module.vpc.my_vpc.id
