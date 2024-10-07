@@ -29,16 +29,28 @@ jobs:
 
       - name: Create DynamoDB Table for Locking
         run: |
-          cd dynamodb
+
           terraform init
           terraform apply -auto-approve
-          cd ..
+        working-directory: ./terraform/dynamodb
 
       - name: Initialize Terraform
         run: terraform init -reconfigure
+        working-directory: ./terraform
 
       - name: Terraform Plan
         run: terraform plan
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
+
+      - name: Create SSH Key
+        run: |
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/your_key.pem
+          chmod 600 ~/.ssh/your_key.pem
+
+      - name: Check Generated Ansible Inventory
+        run: cat ../ansible/inventory.yml
+        working-directory: ./terraform
+      - name: Run Ansible Playbook to Install Docker
+        run: ansible-playbook -i ../ansible/inventory.yml ../ansible/install_docker.yml

@@ -16,3 +16,8 @@ variable "subnet_id" {
   description = "Id of subnet"
   type        = string
 }
+
+variable "key_name" {
+    description = "key name"
+  type        = string
+}

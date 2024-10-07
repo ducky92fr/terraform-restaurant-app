@@ -4,6 +4,7 @@ variable "instances" {
     instance_type = string
     instance_name= string
     subnet=string
+    key_name=string
   }))
 }
 

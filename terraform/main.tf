@@ -86,6 +86,13 @@ module "ec2" {
   ami           = each.value.ami
   instance_type = each.value.instance_type
   instance_name = each.value.instance_name
+  key_name = each.value.key_name
   subnet_id=module.subnets[each.value.subnet].subnet_id
   source ="./modules/ec2"
+}
+
+output "ec2_public_ips" {
+  value = {
+    for instance in module.ec2 : instance.instance_name => instance.public_ip
+  }
 }

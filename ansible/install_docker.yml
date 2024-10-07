@@ -1,0 +1,16 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Update apt cache and install Docker
+      apt:
+        update_cache: yes
+        name:
+          - docker.io
+        state: present
+
+    - name: Ensure Docker is started and enabled
+      systemctl:
+        name: docker
+        enabled: yes
+        state: started
