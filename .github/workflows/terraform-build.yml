@@ -32,11 +32,10 @@ jobs:
           cd dynamodb
           terraform init
           terraform apply -auto-approve
+          cd ..
 
       - name: Initialize Terraform
-        run: |
-          cd ..
-          terraform init -reconfigure
+        run: terraform init -reconfigure
 
       - name: Terraform Plan
         run: terraform plan
