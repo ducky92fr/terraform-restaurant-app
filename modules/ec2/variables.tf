@@ -1,4 +1,5 @@
 variable "instance_name" {
+   description = "Name of EC2 instance"
   type = string
 }
 
@@ -11,3 +12,7 @@ variable "instance_type" {
   default = "t2.micro"
 }
 
+variable "subnet_id" {
+  description = "Id of subnet"
+  type        = string
+}

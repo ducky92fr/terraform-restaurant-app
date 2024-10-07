@@ -82,5 +82,6 @@ module "ec2" {
   ami           = each.value.ami
   instance_type = each.value.instance_type
   instance_name = each.value.instance_name
+  subnet_id=module.subnets[each.value.subnet].subnet_id
   source ="./modules/ec2"
 }

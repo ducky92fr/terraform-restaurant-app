@@ -1,9 +1,9 @@
 instances = {
-  "my-haproxy"        = { ami = "ami-045a8ab02aadf4f88", instance_type = "t2.micro",instance_name:"my-haproxy" }
-  "my-frontend"       = { ami = "ami-045a8ab02aadf4f88", instance_type = "t2.micro",instance_name:"my-frontend" }
-  "my-backend-auth"   = { ami = "ami-045a8ab02aadf4f88", instance_type = "t2.micro",instance_name:"my-backend-auth" }
-  "my-backend-items"  = { ami = "ami-045a8ab02aadf4f88", instance_type = "t2.micro",instance_name:"my-backend-items" }
-  "my-backend-discount" = { ami = "ami-045a8ab02aadf4f88", instance_type = "t2.micro",instance_name:"my-backend-discount" }
+  "my-haproxy"        = { ami = "ami-045a8ab02aadf4f88", instance_type = "t2.micro",instance_name:"my-haproxy",subnet:"public_subnet_1" }
+  "my-frontend"       = { ami = "ami-045a8ab02aadf4f88", instance_type = "t2.micro",instance_name:"my-frontend",subnet:"public_subnet_1" }
+  "my-backend-auth"   = { ami = "ami-045a8ab02aadf4f88", instance_type = "t2.micro",instance_name:"my-backend-auth",subnet:"private_subnet_1" }
+  "my-backend-items"  = { ami = "ami-045a8ab02aadf4f88", instance_type = "t2.micro",instance_name:"my-backend-items",subnet:"private_subnet_1" }
+  "my-backend-discount" = { ami = "ami-045a8ab02aadf4f88", instance_type = "t2.micro",instance_name:"my-backend-discount",subnet:"private_subnet_1" }
 }
 
 subnets ={
