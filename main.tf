@@ -24,7 +24,7 @@ module "vpc" {
 module "subnets" {
   for_each            = var.subnets
   source              = "./modules/subnet"
-  vpc_id = module.vpc.my_vpc.id
+  vpc_id = module.vpc.vpc_id
   cidr_block          = each.value.cidr_block
   availability_zone   = each.value.availability_zone
   map_public_ip_on_launch = each.value.map_public_ip_on_launch
@@ -33,7 +33,7 @@ module "subnets" {
 }
 module "internet_gateway" {
   source              = "./modules/internet-gateway"
-  vpc_id              = module.vpc.my_vpc.id
+  vpc_id              = module.vpc.vpc_id
   internet_gateway_name = "my-internet-gateway"
 }
 
