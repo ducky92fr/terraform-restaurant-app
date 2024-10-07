@@ -27,8 +27,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_ACCESS_SECRET }} # Your custom secret name for Secret Key
           aws-region: eu-west-3 # Example EU region, replace with the specific one you're using
 
+      - name: Create DynamoDB Table for Locking
+        run: |
+          cd dynamodb-creation
+          terraform init
+          terraform apply -auto-approve
+
       - name: Initialize Terraform
-        run: terraform init
+        run: terraform init -reconfigure
 
       - name: Terraform Plan
         run: terraform plan
