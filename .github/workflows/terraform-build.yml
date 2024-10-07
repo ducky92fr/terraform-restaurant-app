@@ -26,7 +26,10 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ID_KEY }} # Your custom secret name for Access Key
           aws-secret-access-key: ${{ secrets.AWS_ACCESS_SECRET }} # Your custom secret name for Secret Key
           aws-region: eu-west-3 # Example EU region, replace with the specific one you're using
-
+      - name: Check current directory
+        run: pwd
+      - name: List root directory contents
+        run: ls -la
       - name: Create DynamoDB Table for Locking
         run: |
           cd dynamodb-creation
