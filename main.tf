@@ -40,10 +40,7 @@ module "internet_gateway" {
 
 module "nat_gateway" {
   source           = "./modules/nat-gateway"
-  public_subnet_id = lookup(
-  { for k, v in module.subnets : k => v.mysubnet.id if can(regex("public", v.mysubnet.tags.Name)) },
-  "public_subnet_1"
-)
+  public_subnet_id = module.subnets["public_subnet_1"].subnet_id
   nat_gateway_name = "my-nat-gateway"
 }
 
