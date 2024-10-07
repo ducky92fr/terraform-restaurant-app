@@ -7,20 +7,19 @@ instances = {
 }
 
 subnets ={
-  default = {
     "public_subnet_1" = {
       cidr_block                = "10.0.1.0/24"
       availability_zone         = "eu-west-3a"
-      map_public_ip_on_launch   = true
+      public_ip_on_launch   = true
       type                      = "public"
       key                       = "1"
     },
     "private_subnet_1" = {
       cidr_block                = "10.0.2.0/24"
       availability_zone         = "eu-west-3a"
-      map_public_ip_on_launch   = false
+      public_ip_on_launch   = false
       type                      = "private"
       key                       = "1"
     },
-  }
+  
 }

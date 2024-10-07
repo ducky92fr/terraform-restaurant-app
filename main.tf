@@ -27,7 +27,7 @@ module "subnets" {
   vpc_id = module.vpc.vpc_id
   cidr_block          = each.value.cidr_block
   availability_zone   = each.value.availability_zone
-  map_public_ip_on_launch = each.value.map_public_ip_on_launch
+  map_public_ip_on_launch = each.value.public_ip_on_launch
   type                = each.value.type
   key                 = each.value.key
 }
