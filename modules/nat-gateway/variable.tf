@@ -3,4 +3,7 @@ variable "public_subnet_id" {
   type        = string
 }
 
-
+variable "nat_gateway_name" {
+  description = "name of nat gateway"
+  type =string
+}

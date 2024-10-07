@@ -21,3 +21,9 @@ variable "key"{
     description = "number of subnet"
     type=string
 }
+
+variable "vpc_id" {
+  description = "vpc_id"
+  type        = string
+}
+
