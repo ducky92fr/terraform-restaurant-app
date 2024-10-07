@@ -39,7 +39,7 @@ module "internet_gateway" {
 
 
 module "nat_gateway" {
-  source           = "./modules/nat_gateway"
+  source           = "./modules/nat-gateway"
   public_subnet_id = lookup({ for k, v in module.subnets : k => v.mysubnet.id if v.type == "public" }, "public_subnet_1")
   nat_gateway_name = "my-nat-gateway"
 }
