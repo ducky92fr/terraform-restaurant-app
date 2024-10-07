@@ -8,8 +8,8 @@ variable "vpc_id" {
   type        = string
 }
 
-variable "subnet_id" {
-  description = "Id of subnet"
+variable "private_subnet_id" {
+  description = "Id of private subnet"
   type        = string
 }
 

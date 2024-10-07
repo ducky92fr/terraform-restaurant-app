@@ -46,25 +46,41 @@ module "nat_gateway" {
 
 
 
+module "public_route_table" {
+  source           = "./modules/public-route"
+  vpc_id=module.vpc.vpc_id
+  gateway_id=module.internet_gateway.internet_gateway_id
+  public_subnet_id = module.subnets["public_subnet_1"].subnet_id
+}
 
+module "private_route_table" {
+  source           = "./modules/private-route"
+  vpc_id=module.vpc.vpc_id
+  nat_gateway_id = module.nat_gateway.nat_gateway_id
+  private_subnet_id = module.subnets["private_subnet_1"].subnet_id
+}
 
+module "security_groups" {
+  for_each = var.securities
 
-# module "public_route_table" {
-#   source           = "./modules/public-route"
-# }
+  source = "./modules/security"
+  vpc_id              = module.vpc.vpc_id
+  name                = each.key  
+  ingress_from_port   = each.value.ingress_from_port
+  ingress_to_port     = each.value.ingress_to_port
+  protocol            = each.value.protocol
+  ingress_cidr_blocks = each.value.ingress_cidr_blocks
+  egress_from_port    = each.value.egress_from_port
+  egress_to_port      = each.value.egress_to_port
+  egress_protocol     = each.value.egress_protocol
+  egress_cidr_blocks  = each.value.egress_cidr_blocks
+  tagName             = each.value.tagName
+}
 
-# module "private_route_table" {
-#   source           = "./modules/private-route"
-# }
-
-# module "security_groups" {
-#   source  = "./modules/security"
-# }
-
-# module "ec2" {
-#   for_each      = var.instances
-#   ami           = each.value.ami
-#   instance_type = each.value.instance_type
-#   instance_name = each.value.instance_name
-#   source ="./modules/ec2"
-# }
+module "ec2" {
+  for_each      = var.instances
+  ami           = each.value.ami
+  instance_type = each.value.instance_type
+  instance_name = each.value.instance_name
+  source ="./modules/ec2"
+}

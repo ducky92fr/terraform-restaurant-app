@@ -23,3 +23,28 @@ subnets ={
     },
   
 }
+
+securities ={
+  "http"={
+    ingress_from_port: 80
+    ingress_to_port:80
+    protocol: "tcp"
+    ingress_cidr_blocks:["0.0.0.0/0"]
+    egress_from_port:0
+    egress_to_port:0
+    egress_protocol:"-1"
+    egress_cidr_blocks:["0.0.0.0/0"]
+    tagName:"allow-http-sg"
+  }
+  "ssh"={
+    ingress_from_port: 22
+    ingress_to_port:22
+    protocol: "tcp"
+    ingress_cidr_blocks:["0.0.0.0/0"]
+    egress_from_port:0
+    egress_to_port:0
+    egress_protocol:"-1"
+    egress_cidr_blocks:["0.0.0.0/0"]
+    tagName:"allow-ssh-sg"
+  }
+}
