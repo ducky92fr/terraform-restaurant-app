@@ -64,5 +64,5 @@ jobs:
           pwd
       - name: Run Ansible Playbook to Install Docker
         run: |
-          cd ../../ansible
+          cd ansible
           ansible-playbook -i inventory.yml install_docker.yml
