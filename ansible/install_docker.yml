@@ -10,7 +10,7 @@
         state: present
 
     - name: Ensure Docker is started and enabled
-      systemctl:
+      systemd:
         name: docker
         enabled: yes
         state: started

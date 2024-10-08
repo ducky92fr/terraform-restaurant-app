@@ -28,37 +28,36 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_ACCESS_SECRET }} # Your custom secret name for Secret Key
           aws-region: eu-west-3 # Example EU region, replace with the specific one you're using
 
-      # - name: Create DynamoDB Table for Locking
-      #   run: |
+      - name: Create DynamoDB Table for Locking
+        run: |
 
-      #     terraform init
-      #     terraform apply -auto-approve
-      #   working-directory: ./terraform/dynamodb
+          terraform init
+          terraform apply -auto-approve
+        working-directory: ./terraform/dynamodb
 
-      # - name: Initialize Terraform
-      #   run: terraform init -reconfigure
-      #   working-directory: ./terraform
+      - name: Initialize Terraform
+        run: terraform init -reconfigure
+        working-directory: ./terraform
 
-      # - name: Terraform Plan
-      #   run: terraform plan
-      #   working-directory: ./terraform
+      - name: Terraform Plan
+        run: terraform plan
+        working-directory: ./terraform
 
-      # - name: Terraform Apply
-      #   run: terraform apply -auto-approve
-      #   working-directory: ./terraform
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+        working-directory: ./terraform
 
-      # - name: Create SSH Key Directory
-      #   run: mkdir -p ~/.ssh
+      - name: Create SSH Key Directory
+        run: mkdir -p ~/.ssh
 
-      # - name: Create SSH Key
-      #   run: |
-      #     echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/your_key.pem
-      #     chmod 600 ~/.ssh/your_key.pem
+      - name: Create SSH Key
+        run: |
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/your_key.pem
+          chmod 600 ~/.ssh/your_key.pem
 
-      # - name: Check Generated Ansible Inventory
-      #   run: cat ../ansible/inventory.yml
-      #   working-directory: ./terraform
-
+      - name: Check Generated Ansible Inventory
+        run: cat ../ansible/inventory.yml
+        working-directory: ./terraform
       - name: Run Ansible Playbook to Install Docker
         run: |
           cd ansible
