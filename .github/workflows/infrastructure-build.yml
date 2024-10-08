@@ -49,8 +49,8 @@ jobs:
 
       - name: Create SSH Key
         run: |
-          echo "${{ secrets.EC2_SSH_KEY }}" > /home/ubuntu/your_key.pem
-          chmod 400 /home/ubuntu/your_key.pem
+          echo "${{ secrets.EC2_SSH_KEY }}" >  ~/your_key.pem
+          chmod 400  ~/your_key.pem
 
       - name: Check Generated Ansible Inventory
         run: cat ansible/inventory.yml
@@ -64,8 +64,8 @@ jobs:
       # Copy the SSH Key to the HAProxy instance using the extracted IP
       - name: Copy SSH Key to HAProxy
         run: |
-          scp -o StrictHostKeyChecking=no -i /home/ubuntu/your_key.pem /home/ubuntu/your_key.pem ubuntu@${{ env.HAPROXY_IP }}:/home/ubuntu/your_key.pem
-          ssh -i /home/ubuntu/your_key.pem ubuntu@${{ env.HAPROXY_IP }} "chmod 400 /home/ubuntu/your_key.pem"
+          scp -o StrictHostKeyChecking=no -i  ~/your_key.pem  ~/your_key.pem ubuntu@${{ env.HAPROXY_IP }}:/home/ubuntu/your_key.pem
+          ssh -i ~/your_key.pem ubuntu@${{ env.HAPROXY_IP }} "chmod 400  ~/your_key.pem"
 
       - name: Run Ansible Playbook to Install Docker
         run: |

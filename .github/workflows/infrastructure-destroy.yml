@@ -28,10 +28,16 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_ACCESS_SECRET }} # Your Secret Key
           aws-region: eu-west-3 # Your desired region
 
-      - name: Initialize Terraform
-        run: terraform init -reconfigure
-        working-directory: ./terraform
+      # Destroy DynamoDB table
+      - name: Destroy DynamoDB Table
+        run: |
+          terraform init -reconfigure
+          terraform destroy -auto-approve
+        working-directory: ./terraform/dynamodb
 
-      - name: Terraform Destroy
-        run: terraform destroy -auto-approve
+      # Destroy all other resources (main infrastructure)
+      - name: Destroy Main Terraform Resources
+        run: |
+          terraform init -reconfigure
+          terraform destroy -auto-approve
         working-directory: ./terraform
