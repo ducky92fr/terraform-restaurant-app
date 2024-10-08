@@ -59,4 +59,4 @@ jobs:
         run: cat ../ansible/inventory.yml
         working-directory: ./terraform
       - name: Run Ansible Playbook to Install Docker
-        run: ansible-playbook -i ../ansible/inventory.yml ../ansible/install_docker.yml
+        run: ansible-playbook -i ../../ansible/inventory.yml ../../ansible/install_docker.yml
