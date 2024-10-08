@@ -53,7 +53,7 @@ jobs:
       - name: Create SSH Key
         run: |
           echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/your_key.pem
-          chmod 600 ~/.ssh/your_key.pem
+          chmod 400 ~/.ssh/your_key.pem
 
       - name: Check Generated Ansible Inventory
         run: cat ../ansible/inventory.yml

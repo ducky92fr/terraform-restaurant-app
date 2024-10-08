@@ -18,6 +18,16 @@ variable "subnet_id" {
 }
 
 variable "key_name" {
-    description = "key name"
+  description = "key name"
   type        = string
+}
+
+variable "vpc_security_group_ids" {
+description = "List of security group IDs to attach to the EC2 instance"
+  type        = list(string)
+}
+
+variable "associate_public_ip_address" {
+  description = "Public IP address"
+  type        = bool
 }
