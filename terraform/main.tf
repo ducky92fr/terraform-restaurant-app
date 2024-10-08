@@ -96,3 +96,7 @@ output "ec2_public_ips" {
     for key, instance in module.ec2 : key => instance.public_ip
   }
 }
+
+output "ec2_module_attributes" {
+  value = module.ec2
+}
