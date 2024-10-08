@@ -97,9 +97,14 @@ module "ec2" {
 resource "local_file" "ansible_inventory" {
   filename = "${path.module}/../ansible/inventory.yml"
   content  = templatefile("${path.module}/../ansible/templates/inventory.tpl", {
-    ec2_public_ips = {
-    for key, instance in module.ec2 : key => instance.public_ip
-  }
+    ec2_ips = {
+      for key, instance in module.ec2 :
+      key => {
+        public_ip  = instance.public_ip
+        private_ip = instance.private_ip
+        subnet_type = instance.subnet_id == module.subnets["public_subnet_1"].subnet_id ? "public" : "private"
+      }
+    }
   })
    depends_on = [module.ec2]
 }
