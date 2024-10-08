@@ -6,4 +6,5 @@ resource "aws_instance" "my_instance" {
   }
   subnet_id = var.subnet_id
   key_name      = var.key_name
+  associate_public_ip_address = true
 }
