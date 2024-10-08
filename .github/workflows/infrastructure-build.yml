@@ -47,13 +47,13 @@ jobs:
         run: terraform apply -auto-approve
         working-directory: ./terraform
 
-      - name: Create SSH Key
-        run: |
-          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/your_key.pem
-          chmod 600 ~/.ssh/your_key.pem
+      # - name: Create SSH Key
+      #   run: |
+      #     echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/your_key.pem
+      #     chmod 600 ~/.ssh/your_key.pem
 
-      - name: Check Generated Ansible Inventory
-        run: cat ../ansible/inventory.yml
-        working-directory: ./terraform
-      - name: Run Ansible Playbook to Install Docker
-        run: ansible-playbook -i ../ansible/inventory.yml ../ansible/install_docker.yml
+      # - name: Check Generated Ansible Inventory
+      #   run: cat ../ansible/inventory.yml
+      #   working-directory: ./terraform
+      # - name: Run Ansible Playbook to Install Docker
+      #   run: ansible-playbook -i ../ansible/inventory.yml ../ansible/install_docker.yml
