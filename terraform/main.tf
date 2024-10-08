@@ -91,20 +91,13 @@ module "ec2" {
   source ="./modules/ec2"
 }
 
-output "ec2_public_ips" {
-  value = {
-    for key, instance in module.ec2 : key => instance.public_ip
-  }
-}
-
-output "ec2_module_attributes" {
-  value = module.ec2
-}
 
 resource "local_file" "ansible_inventory" {
   filename = "${path.module}/../ansible/inventory.yml"
   content  = templatefile("${path.module}/../ansible/templates/inventory.tpl", {
-    ec2_public_ips = output.ec2_public_ips
+    ec2_public_ips = {
+    for key, instance in module.ec2 : key => instance.public_ip
+  }
   })
    depends_on = [module.ec2]
 }
