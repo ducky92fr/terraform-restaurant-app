@@ -58,7 +58,11 @@ jobs:
       - name: Check Generated Ansible Inventory
         run: cat ../ansible/inventory.yml
         working-directory: ./terraform
+
+      - name: directory
+        run: |
+          pwd
       - name: Run Ansible Playbook to Install Docker
         run: |
-          cd ../ansible
+          cd ../../ansible
           ansible-playbook -i inventory.yml install_docker.yml
