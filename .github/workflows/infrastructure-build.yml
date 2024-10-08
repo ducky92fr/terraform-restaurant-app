@@ -19,7 +19,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: 1.9.6
+          terraform_version: 1.9.6for
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
@@ -28,14 +28,34 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_ACCESS_SECRET }} # Your custom secret name for Secret Key
           aws-region: eu-west-3 # Example EU region, replace with the specific one you're using
 
-      - name: Create DynamoDB Table for Locking
+      - name: Check if DynamoDB Table Exists
+        id: dynamodb_check
         run: |
+          aws dynamodb describe-table --table-name terraform-state-lock --region eu-west-3 || echo "Table does not exist"
+        continue-on-error: true
 
+        # Create DynamoDB Table for Locking (if it doesn't already exist)
+      - name: Create DynamoDB Table for Locking
+        if: steps.dynamodb_check.outcome == 'failure' # Only run if DynamoDB doesn't exist
+        run: |
           terraform init
           terraform apply -auto-approve
         working-directory: ./terraform/dynamodb
 
+      - name: Check if Terraform Backend is initialized
+        id: backend_check
+        run: |
+          if [ -f ".terraform/terraform.tfstate" ]; then
+            echo "Terraform Backend already initialized"
+          else
+            echo "Terraform Backend not initialized"
+            exit 1
+          fi
+        working-directory: ./terraform
+        continue-on-error: true
+
       - name: Initialize Terraform
+        if: steps.backend_check.outcome == 'failure'
         run: terraform init -reconfigure
         working-directory: ./terraform
 
