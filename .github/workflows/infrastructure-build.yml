@@ -47,17 +47,25 @@ jobs:
         run: terraform apply -auto-approve
         working-directory: ./terraform
 
-      - name: Create SSH Key Directory
-        run: mkdir -p ~/.ssh
-
       - name: Create SSH Key
         run: |
-          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/your_key.pem
-          chmod 400 ~/.ssh/your_key.pem
+          echo "${{ secrets.EC2_SSH_KEY }}" > /home/ubuntu/your_key.pem
+          chmod 400 /home/ubuntu/your_key.pem
 
       - name: Check Generated Ansible Inventory
-        run: cat ../ansible/inventory.yml
-        working-directory: ./terraform
+        run: cat ansible/inventory.yml
+
+      - name: Extract HAProxy IP from inventory
+        id: extract_haproxy_ip
+        run: |
+          HAPROXY_IP=$(grep -A 1 'haproxy' ansible/inventory.yml | awk '/ansible_host/ {print $2}')
+          echo "HAPROXY_IP=$HAPROXY_IP" >> $GITHUB_ENV
+
+      # Copy the SSH Key to the HAProxy instance using the extracted IP
+      - name: Copy SSH Key to HAProxy
+        run: |
+          scp -o StrictHostKeyChecking=no -i /home/ubuntu/your_key.pem /home/ubuntu/your_key.pem ubuntu@${{ env.HAPROXY_IP }}:/home/ubuntu/your_key.pem
+          ssh -i /home/ubuntu/your_key.pem ubuntu@${{ env.HAPROXY_IP }} "chmod 400 /home/ubuntu/your_key.pem"
 
       - name: Run Ansible Playbook to Install Docker
         run: |
