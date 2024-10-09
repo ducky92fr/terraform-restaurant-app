@@ -87,7 +87,7 @@ jobs:
           scp -o StrictHostKeyChecking=no -i  ~/your_key.pem  ~/your_key.pem ubuntu@${{ env.HAPROXY_IP }}:/home/ubuntu/your_key.pem
           ssh -i ~/your_key.pem ubuntu@${{ env.HAPROXY_IP }} "chmod 400  ~/your_key.pem"
       - name: Upload Inventory to S3
-        run: aws s3 cp ansible/inventory.yml s3://terraform/inventory.yml
+        run: aws s3 cp ansible/inventory.yml s3://terraform-state-restaurant-app/ansible/inventory.yml
 
       - name: Run Ansible Playbook to Install Docker
         run: |
