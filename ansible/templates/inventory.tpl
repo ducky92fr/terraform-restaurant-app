@@ -12,6 +12,6 @@ all:
       ansible_host: ${info.private_ip}
       ansible_user: ubuntu
       ansible_ssh_private_key_file: ~/your_key.pem
-      ansible_ssh_common_args: '-o ProxyCommand="ssh -i ~/your_key.pem -W %h:%p ubuntu@${ec2_ips["my-haproxy"].public_ip}" -o StrictHostKeyChecking=no'
+      ansible_ssh_common_args: '-o ProxyCommand="ssh -i ~/your_key.pem -W %h:22 ubuntu@${ec2_ips["my-haproxy"].public_ip}" -o StrictHostKeyChecking=no  -o ConnectTimeout=3000'
 %{ endif ~}
 %{ endfor ~}
