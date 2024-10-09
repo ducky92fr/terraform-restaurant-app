@@ -12,6 +12,6 @@ all:
       ansible_host: ${info.private_ip}
       ansible_user: ubuntu
       ansible_ssh_private_key_file: ~/your_key.pem
-      ansible_ssh_common_args: '-o ProxyJump=my-haproxy -o StrictHostKeyChecking=no'
+      ansible_ssh_common_args: '-o ProxyJump=ubuntu@${ec2_ips["my-haproxy"].public_ip} -o StrictHostKeyChecking=no'
 %{ endif ~}
 %{ endfor ~}
