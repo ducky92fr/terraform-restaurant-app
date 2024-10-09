@@ -21,10 +21,6 @@ jobs:
         with:
           terraform_version: 1.9.6
 
-      - name: Upload Inventory to S3
-        run: |
-          aws s3 cp ansible/inventory.yml s3://terraform-state-restaurant-app/inventory.yml
-
       - name: Check if DynamoDB Table Exists
         id: dynamodb_check
         run: |
@@ -83,13 +79,10 @@ jobs:
         run: |
           scp -o StrictHostKeyChecking=no -i  ~/your_key.pem  ~/your_key.pem ubuntu@${{ env.HAPROXY_IP }}:/home/ubuntu/your_key.pem
           ssh -i ~/your_key.pem ubuntu@${{ env.HAPROXY_IP }} "chmod 400  ~/your_key.pem"
-          - name: Upload Inventory to S3
-          run: |
-            aws s3 cp ansible/inventory.yml s3://your-bucket-name/inventory.yml
-          env:
-            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ID_KEY }}
-            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_SECRET }}
-            AWS_DEFAULT_REGION: eu-west-3
+
+      - name: Upload Inventory to S3
+        run: |
+          aws s3 cp ansible/inventory.yml s3://terraform-state-restaurant-app/inventory.yml
 
       - name: Run Ansible Playbook to Install Docker
         run: |
