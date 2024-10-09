@@ -1,12 +1,12 @@
 instances = {
   "my-haproxy"        = { ami = "ami-045a8ab02aadf4f88", instance_type = "t2.micro",instance_name:"my-haproxy",subnet:"public_subnet_1",key_name:"generalUseRestaurant",associate_public_ip_address:true }
   "my-frontend"       = { ami = "ami-045a8ab02aadf4f88", instance_type = "t2.micro",instance_name:"my-frontend",subnet:"public_subnet_1",key_name:"generalUseRestaurant",associate_public_ip_address:true  }
-  "my-backend-auth"   = { ami = "ami-045a8ab02aadf4f88", instance_type = "t2.micro",instance_name:"my-backend-auth",subnet:"private_subnet_1",key_name:"generalUseRestaurant",associate_public_ip_address:false }
-  "my-backend-items"  = { ami = "ami-045a8ab02aadf4f88", instance_type = "t2.micro",instance_name:"my-backend-items",subnet:"private_subnet_1",key_name:"generalUseRestaurant",associate_public_ip_address:false }
-  "my-backend-discount" = { ami = "ami-045a8ab02aadf4f88", instance_type = "t2.micro",instance_name:"my-backend-discount",subnet:"private_subnet_1",key_name:"generalUseRestaurant",associate_public_ip_address:false }
+  "my-backend-auth"   = { ami = "ami-045a8ab02aadf4f88", instance_type = "t2.micro",instance_name:"my-backend-auth",subnet:"public_subnet_1",key_name:"generalUseRestaurant",associate_public_ip_address:true }
+  "my-backend-items"  = { ami = "ami-045a8ab02aadf4f88", instance_type = "t2.micro",instance_name:"my-backend-items",subnet:"public_subnet_1",key_name:"generalUseRestaurant",associate_public_ip_address:true }
+  "my-backend-discount" = { ami = "ami-045a8ab02aadf4f88", instance_type = "t2.micro",instance_name:"my-backend-discount",subnet:"public_subnet_1",key_name:"generalUseRestaurant",associate_public_ip_address:true }
 }
 
-subnets ={
+subnets = {
     "public_subnet_1" = {
       cidr_block                = "10.0.1.0/24"
       availability_zone         = "eu-west-3a"
