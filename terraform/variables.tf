@@ -5,6 +5,7 @@ variable "instances" {
     instance_name= string
     subnet=string
     key_name=string
+    associate_public_ip_address=bool
   }))
 }
 

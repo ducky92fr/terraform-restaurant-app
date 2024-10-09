@@ -89,7 +89,7 @@ module "ec2" {
   key_name = each.value.key_name
   subnet_id=module.subnets[each.value.subnet].subnet_id
   source ="./modules/ec2"
-  associate_public_ip_address = true
+  associate_public_ip_address = each.value.associate_public_ip_address
   vpc_security_group_ids=[module.security_groups["http"].security_group_id,module.security_groups["ssh"].security_group_id]
 }
 
