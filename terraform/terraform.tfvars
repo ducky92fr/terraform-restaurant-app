@@ -21,6 +21,20 @@ subnets = {
       type                      = "private"
       key                       = "1"
     },
+"public_subnet_2" = {
+      cidr_block                = "10.0.3.0/24"
+      availability_zone         = "eu-west-3b"
+      public_ip_on_launch   = true
+      type                      = "public"
+      key                       = "1"
+    },
+    "private_subnet_2" = {
+      cidr_block                = "10.0.4.0/24"
+      availability_zone         = "eu-west-3b"
+      public_ip_on_launch   = false
+      type                      = "private"
+      key                       = "1"
+    },
   
 }
 
